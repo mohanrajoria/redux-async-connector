@@ -130,9 +130,9 @@ This integration gives you agility:
 Also it's integrated with [React Router](https://github.com/rackt/react-router) to prevent routing transition
 until data is loaded.
 
-## Contributors
+<!-- ## Contributors
 - [Rodion Salnik](https://github.com/sars)
-- [Rezonans team](https://github.com/Rezonans)
+- [Rezonans team](https://github.com/Rezonans) -->
 
 ## Collaboration
 You're welcome to PR, and we appreciate any questions or issues, please [open an issue](https://github.com/mohanrajoria/redux-async-connector/issues)!

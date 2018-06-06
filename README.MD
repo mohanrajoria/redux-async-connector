@@ -18,7 +18,7 @@ Another stores your data to redux state and connect your loaded data to your con
 
 Using [npm](https://www.npmjs.com/):
 
-    $ npm install redux-async-connect
+    $ npm install redux-async-connector
 
 ```js
 import { Router, browserHistory } from 'react-router';

@@ -1,4 +1,4 @@
-ReduxAsyncConnect for React Router
+<!-- ReduxAsyncConnect for React Router
 ============
 [![npm version](https://img.shields.io/npm/v/redux-async-connect.svg?style=flat-square)](https://www.npmjs.com/package/redux-async-connect)
 
@@ -135,4 +135,4 @@ until data is loaded.
 - [Rezonans team](https://github.com/Rezonans) -->
 
 ## Collaboration
-You're welcome to PR, and we appreciate any questions or issues, please [open an issue](https://github.com/mohanrajoria/redux-async-connector/issues)!
+You're welcome to PR, and we appreciate any questions or issues, please [open an issue](https://github.com/mohanrajoria/redux-async-connector/issues)! -->

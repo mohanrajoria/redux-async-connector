@@ -1,9 +1,9 @@
-import ReduxAsyncConnect, {loadOnServer} from './ReduxAsyncConnect';
+import ReduxAsyncConnector, {loadOnServer} from './ReduxAsyncConnector';
 import {reducer, clearKey, loadSuccess, asyncConnect} from './asyncConnect';
 
 export {
     loadOnServer,
-    ReduxAsyncConnect,
+    ReduxAsyncConnector,
     reducer,
     clearKey,
     loadSuccess,

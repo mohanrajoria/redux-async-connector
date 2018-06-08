@@ -28,7 +28,7 @@ function eachComponents(components, iterator) {
 function filterAndFlattenComponents(components) {
   const flattened = [];
   eachComponents(components, (Component) => {
-    if (Component && Component.reduxAsyncConnect) {
+    if (Component && Component.reduxAsyncConnector) {
       flattened.push(Component);
     }
   });
@@ -36,20 +36,20 @@ function filterAndFlattenComponents(components) {
 }
 
 function asyncConnectPromises(components, params, store, helpers) {
-  return components.map(Component => Component.reduxAsyncConnect(params, store, helpers))
+  return components.map(Component => Component.reduxAsyncConnector(params, store, helpers))
     .filter(result => result && result.then instanceof Function);
 }
 
 export function loadOnServer({ components, params }, store, helpers) {
   return Promise.all(asyncConnectPromises(filterAndFlattenComponents(components), params, store, helpers))
-    .catch(error => console.error('reduxAsyncConnect server promise error: ', error)).then(() => {
+    .catch(error => console.error('reduxAsyncConnector server promise error: ', error)).then(() => {
       store.dispatch(endGlobalLoad());
     });
 }
 
 let loadDataCounter = 0;
 
-class ReduxAsyncConnect extends React.Component {
+class ReduxAsyncConnector extends React.Component {
   static propTypes = {
     components: array.isRequired,
     params: object.isRequired,
@@ -70,7 +70,7 @@ class ReduxAsyncConnect extends React.Component {
   };
 
   isLoaded() {
-    return this.context.store.getState().reduxAsyncConnect.loaded;
+    return this.context.store.getState().reduxAsyncConnector.loaded;
   }
 
   constructor(props, context) {
@@ -107,7 +107,7 @@ class ReduxAsyncConnect extends React.Component {
     if (promises.length) {
       this.props.beginGlobalLoad();
       (loadDataCounterOriginal => {
-        Promise.all(promises).catch(error => console.error('reduxAsyncConnect server promise error: ', error))
+        Promise.all(promises).catch(error => console.error('reduxAsyncConnector server promise error: ', error))
             .then(() => {
               // We need to change propsToShow only if loadAsyncData that called this promise
               // is the last invocation of loadAsyncData method. Otherwise we can face situation
@@ -130,4 +130,4 @@ class ReduxAsyncConnect extends React.Component {
   }
 }
 
-export default connect(null, {beginGlobalLoad, endGlobalLoad})(ReduxAsyncConnect);
+export default connect(null, {beginGlobalLoad, endGlobalLoad})(ReduxAsyncConnector);

@@ -1,6 +1,6 @@
-<!-- ReduxAsyncConnect for React Router
+<!-- ReduxAsyncConnector for React Router
 ============
-[![npm version](https://img.shields.io/npm/v/redux-async-connect.svg?style=flat-square)](https://www.npmjs.com/package/redux-async-connect)
+[![npm version](https://img.shields.io/npm/v/redux-async-connector.svg?style=flat-square)](https://www.npmjs.com/package/redux-async-connector)
 
 How do you usually request data and store it to redux state?
 You create actions that do async jobs to load data, create reducer to save this data to redux state,
@@ -22,7 +22,7 @@ Using [npm](https://www.npmjs.com/):
 
 ```js
 import { Router, browserHistory } from 'react-router';
-import { ReduxAsyncConnect, asyncConnect, reducer as reduxAsyncConnect } from 'redux-async-connect'
+import { ReduxAsyncConnector, asyncConnect, reducer as reduxAsyncConnector } from 'redux-async-connector'
 import React from 'react'
 import { render } from 'react-dom'
 import { createStore, combineReducers } from 'redux';
@@ -42,12 +42,12 @@ class App extends React.Component {
 }
 
 // 3. Connect redux async reducer
-const store = createStore(combineReducers({reduxAsyncConnect}), window.__data);
+const store = createStore(combineReducers({reduxAsyncConnector}), window.__data);
 
-// 4. Render `Router` with ReduxAsyncConnect middleware
+// 4. Render `Router` with ReduxAsyncConnector middleware
 render((
   <Provider store={store} key="provider">
-    <Router render={(props) => <ReduxAsyncConnect {...props}/>} history={browserHistory}>
+    <Router render={(props) => <ReduxAsyncConnector {...props}/>} history={browserHistory}>
       <Route path="/" component={App}/>
     </Router>
   </Provider>
@@ -59,24 +59,24 @@ render((
 ```js
 import { renderToString } from 'react-dom/server'
 import { match, RoutingContext } from 'react-router'
-import { ReduxAsyncConnect, loadOnServer, reducer as reduxAsyncConnect } from 'redux-async-connect'
+import { ReduxAsyncConnector, loadOnServer, reducer as reduxAsyncConnector } from 'redux-async-connector'
 import createHistory from 'history/lib/createMemoryHistory';
 import {Provider} from 'react-redux';
 import { createStore, combineReducers } from 'redux';
 
 app.get('*', (req, res) => {
   const history = createHistory();
-  const store = createStore(combineReducers({reduxAsyncConnect}));
+  const store = createStore(combineReducers({reduxAsyncConnector}));
 
   match({ routes, location: req.url }, (err, redirect, renderProps) => {
 
     // 1. load data
     loadOnServer(renderProps, store).then(() => {
 
-      // 2. use `ReduxAsyncConnect` instead of `RoutingContext` and pass it `renderProps`
+      // 2. use `ReduxAsyncConnector` instead of `RoutingContext` and pass it `renderProps`
       const appHTML = renderToString(
         <Provider store={store} key="provider">
-          <ReduxAsyncConnect {...renderProps} />
+          <ReduxAsyncConnector {...renderProps} />
         </Provider>
       )
 

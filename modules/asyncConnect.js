@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
 
-export const LOAD = 'reduxAsyncConnect/LOAD';
-export const LOAD_SUCCESS = 'reduxAsyncConnect/LOAD_SUCCESS';
-export const LOAD_FAIL = 'reduxAsyncConnect/LOAD_FAIL';
-export const CLEAR = 'reduxAsyncConnect/CLEAR';
-export const BEGIN_GLOBAL_LOAD = 'reduxAsyncConnect/BEGIN_GLOBAL_LOAD';
-export const END_GLOBAL_LOAD = 'reduxAsyncConnect/END_GLOBAL_LOAD';
+export const LOAD = 'reduxAsyncConnector/LOAD';
+export const LOAD_SUCCESS = 'reduxAsyncConnector/LOAD_SUCCESS';
+export const LOAD_FAIL = 'reduxAsyncConnector/LOAD_FAIL';
+export const CLEAR = 'reduxAsyncConnector/CLEAR';
+export const BEGIN_GLOBAL_LOAD = 'reduxAsyncConnector/BEGIN_GLOBAL_LOAD';
+export const END_GLOBAL_LOAD = 'reduxAsyncConnector/END_GLOBAL_LOAD';
 
 export function reducer(state = {loaded: false}, action = {}) {
   const stateSlice = state[action.key];
@@ -128,10 +128,10 @@ function componentLoadCb(mapStateToProps, params, store, helpers) {
 
 export function asyncConnect(mapStateToProps) {
   return Component => {
-    Component.reduxAsyncConnect = (params, store, helpers) => componentLoadCb(mapStateToProps, params, store, helpers);
+    Component.reduxAsyncConnector = (params, store, helpers) => componentLoadCb(mapStateToProps, params, store, helpers);
 
     const finalMapStateToProps = state => {
-      return Object.keys(mapStateToProps).reduce((result, key) => ({...result, [key]: state.reduxAsyncConnect[key]}), {});
+      return Object.keys(mapStateToProps).reduce((result, key) => ({...result, [key]: state.reduxAsyncConnector[key]}), {});
     };
 
     return connect(finalMapStateToProps)(Component);

@@ -1,12 +1,12 @@
 API
 ============
 
-## ReduxAsyncConnect
-It allows to delay route transition until all promises returned by reduxAsyncConnect methods of components defined within corresponding route are resolved or rejected.
+## ReduxAsyncConnector
+It allows to delay route transition until all promises returned by reduxAsyncConnector methods of components defined within corresponding route are resolved or rejected.
 
 #### Props
 ##### `components` (required)
-The list of components corresponding current route. It not instances... 
+The list of components corresponding current route. It not instances...
 Usually it is provided by react Router component or match method from react router.
 
 ##### `params` (required)
@@ -18,17 +18,17 @@ Function that accepts props and uses to render components.
 Usually it's just <RouterContext {...props} /> (by default)
 
 ##### `helpers`
-Any helpers you may want pass to your reduxAsyncConnect static method.
+Any helpers you may want pass to your reduxAsyncConnector static method.
 For example some fetching library.
 
-#### `reduxAsyncConnect` static method
+#### `reduxAsyncConnector` static method
 You can define such static method in your container components, that are connected with router.
 It allows you to delay rendering until this promise will be resolved or rejected.
 It accepts params from router, redux store and helpers
-It can return promise. If it returns something else, ReduxAsyncConnect will not delay rendering.
+It can return promise. If it returns something else, ReduxAsyncConnector will not delay rendering.
 _**Example:**_
 ```js
-  static reduxAsyncConnect(params, store, helpers) {
+  static reduxAsyncConnector(params, store, helpers) {
     const {dispatch, getState} = store;
     if (!isLoaded(getState())) {
       return dispatch(loadWidgets());
@@ -55,15 +55,15 @@ So in example above you'll have this.props.lunches
 The value of each key should be function, that accepts params from router and helpers. Redux store exists in helpers by default.
 This function can return:
 - _**undefined**_ In this case we'll do nothing
-- _**promise**_ In this case we'll store data from this promise to redux state to appropriate key and will ask ReduxAsyncConnect to delay rendering
+- _**promise**_ In this case we'll store data from this promise to redux state to appropriate key and will ask ReduxAsyncConnector to delay rendering
 - _**other value**_ In this case we'll store this data to redux state to appropriate key immediately
 
 ## reducer
-This reducer MUST be mounted to `reduxAsyncConnect` key in combineReducers.
+This reducer MUST be mounted to `reduxAsyncConnector` key in combineReducers.
 It uses to store information about global loading and all other data to redux store.
 
 ## redux state
-You'll have the following in your `reduxAsyncConnect` key in redux state:
+You'll have the following in your `reduxAsyncConnector` key in redux state:
 _(the [key] here is corresponding to mapStateToProps object's keys passed to asyncConnect decorator)_
 
 - _**loaded**_ It's global loading identifier. Useful for page preloader
